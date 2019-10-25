@@ -1,18 +1,40 @@
 console.log("Alive!");
+
+
 document.addEventListener("DOMContentLoaded", ()=>{
-    fetch('/',{
-        method: 'POST',
-            headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        }})
+    fetch('/books')
         .then(data=>data.json())
         .then(data=>{
-            data.forEach((item)=>{
+            let bookDiv = document.querySelector("#books");
+            data.forEach((item,i,arr)=>{
                 let newDiv = document.createElement("div");
-                newDiv.innerHTML = `<h2>book: ${item.title}, author: ${item.author[0].name}, edition: ${item.edition[0].title}</h2>`;
-                document.querySelector("#books").appendChild(newDiv);
-            });
-            console.log(data)
-        })
-        .catch(err=>console.log(err))
+                newDiv.id=i;
+                newDiv.innerHTML = `<h3>book: ${item.title}</h3>`;
+                bookDiv.appendChild(newDiv);
+            })
+         })
+        .catch(err=>console.log(err));
 });
+
+
+//     fetch(`/book`,{
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify({title: item.title})})
+//         .then(data=>
+//             data.json()
+//         )
+//         .then(data=> console.log(data))
+//         .catch(err=>console.log(err))
+
+// newDiv.addEventListener('click',()=>{
+//     return fetch(`/book`,{
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify({title: item.title})
+//     })
+// });
